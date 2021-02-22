@@ -1,21 +1,58 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { StyleSheet } from "react-native";
+import { enableScreens } from "react-native-screens";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "react-native-screens/native-stack";
+//import { createSharedElementStackNavigator } from "react-navigation-shared-element";
+
+import FoodListingScreen from "./app/screens/FoodListingScreen";
+import FoodDetailsScreen from "./app/screens/FoodDetailsScreen";
+
+enableScreens();
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+	return (
+		<NavigationContainer>
+			<Stack.Navigator
+				screenOptions={{
+					headerShown: false,
+					gestureEnabled: false,
+				}}
+			>
+				<Stack.Screen name="FoodListings" component={FoodListingScreen} />
+				<Stack.Screen
+					name="FoodDetails"
+					component={FoodDetailsScreen}
+					// sharedElementsConfig={(route, otherRoute, showing) => {
+					// 	const { food } = route.params;
+
+					// 	return [
+					// 		{
+					// 			id: `food.${food.key}.meta`,
+					// 			animation: "fade",
+					// 			resize: "clip",
+					// 			align: "left-top",
+					// 		},
+					// 		{
+					// 			id: `food.${food.key}.image`,
+					// 			animation: "fade",
+					// 			resize: "clip",
+					// 			align: "left-top",
+					// 		},
+					// 		{
+					// 			id: `food.${food.key}.background`,
+					// 			animation: "spring",
+					// 			resize: "clip",
+					// 			align: "left-top",
+					// 		},
+					// 	];
+					// }}
+				/>
+			</Stack.Navigator>
+		</NavigationContainer>
+	);
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const styles = StyleSheet.create({});
